@@ -107,17 +107,12 @@ for signature verification.
 3. **Register the webhook** using Strategy A or B below, passing the **webhook URL** and
    **HMAC secret** to the service.
 
-### Strategy A: CLI / API (preferred)
+Register the webhook on the service. Try these approaches in order. **Do NOT ask the user
+which approach they prefer — just try them in order and move to the next if one fails.**
 
-Use the service's CLI or API to register the webhook programmatically.
+### Approach 1: CLI / API
 
-**You MUST verify the correct commands.** If you are not certain of the exact CLI syntax
-or API format, fetch the official docs first.
-
-#### GitHub — `gh` CLI
-
-Check `gh auth status` first. If authenticated:
-
+**GitHub** — check `gh auth status`. If authenticated:
 ```bash
 gh api repos/{owner}/{repo}/hooks --method POST \
   -f "name=web" \
@@ -129,67 +124,50 @@ gh api repos/{owner}/{repo}/hooks --method POST \
   -f "active=true"
 ```
 
-#### Linear — GraphQL API
-
-Linear does NOT have a webhook CLI. Use the GraphQL API:
-
-```bash
-curl -X POST https://api.linear.app/graphql \
-  -H "Authorization: Bearer {LINEAR_API_KEY}" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "query": "mutation { webhookCreate(input: { url: \"{public_webhook_url}\", teamId: \"{team_id}\", resourceTypes: [\"Issue\"], secret: \"{hmac_secret}\" }) { success webhook { id enabled } } }"
-  }'
-```
-
-Notes:
-- Only workspace admins or OAuth apps with `admin` scope can create webhooks
-- `resourceTypes` options: Comment, Issue, IssueLabel, Project, Cycle, Reaction, Documents, Initiatives, Customers, Users
-- You need either a `teamId` or `allPublicTeams: true`
-- Check for a LINEAR_API_KEY env var. If not available, fall back to Strategy B.
-
-#### Stripe — `stripe` CLI
-
-Check if `stripe` CLI is installed and authenticated. If so:
-
+**Stripe** — check if `stripe` CLI is installed and authenticated:
 ```bash
 stripe webhook_endpoints create \
   --url={public_webhook_url} \
   --enabled-events={event1},{event2}
 ```
 
-#### Other / Unknown services
+**Linear** — check for `LINEAR_API_KEY` env var. If it exists:
+```bash
+curl -X POST https://api.linear.app/graphql \
+  -H "Authorization: Bearer $LINEAR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"query":"mutation { webhookCreate(input: { url: \"{public_webhook_url}\", resourceTypes: [\"Issue\"], secret: \"{hmac_secret}\" }) { success webhook { id } } }"}'
+```
 
-Look up the docs with WebFetch first. If the service has an API for webhook registration,
-use it. Otherwise fall back to Strategy B.
+If the CLI/API approach fails (not authenticated, no API key, command not found), **do NOT
+ask the user for API keys or credentials.** Move immediately to Approach 2.
 
-### Strategy B: Browser via Claude in Chrome (fallback)
+### Approach 2: Browser (Claude in Chrome)
 
-If Strategy A is not possible (no CLI, no API key, auth failure), use the **Browser tool**
-(Claude in Chrome) to navigate to the service's webhook settings page and fill in the form
-yourself, with the user supervising.
+Use the **Browser tool** to do it yourself. Navigate to the webhook settings page, fill in
+the form, and submit it. The user supervises and approves each action.
 
-1. Open the webhook settings page in the browser:
-   - GitHub: `https://github.com/{owner}/{repo}/settings/hooks/new`
-   - Linear: `https://linear.app/settings/api/webhooks`
-   - Stripe: `https://dashboard.stripe.com/webhooks/create`
+URLs:
+- GitHub: `https://github.com/{owner}/{repo}/settings/hooks/new`
+- Linear: `https://linear.app/settings/api/webhooks`
+- Stripe: `https://dashboard.stripe.com/webhooks/create`
 
-2. Fill in the form fields:
-   - **URL**: `{public_webhook_url}`
-   - **Content type**: `application/json`
-   - **Secret**: `{hmac_secret}`
-   - **Events**: the specific events to subscribe to
-
-3. Submit the form. The user will supervise and approve each action.
+Fill in:
+- **URL**: `{public_webhook_url}`
+- **Content type**: `application/json`
+- **Secret**: `{hmac_secret}`
+- **Events**: the specific events
 
 If the Browser tool is not available, tell the user:
 
-> "I need the Claude in Chrome extension to register this webhook for you via the browser.
+> "I need the Claude in Chrome extension to register this webhook for you.
 > Install it here: https://chromewebstore.google.com/publisher/anthropic/u308d63ea0533efcf7ba778ad42da7390
 >
 > Once installed, restart Claude Code and try `/subscribe` again."
 
-If they don't want to install it, fall back to giving them the values to enter manually:
+### Approach 3: Manual (last resort)
+
+Only if the user explicitly declines to install Claude in Chrome:
 
 > Here's what to enter in the webhook settings:
 > - **URL**: `{public_webhook_url}`
