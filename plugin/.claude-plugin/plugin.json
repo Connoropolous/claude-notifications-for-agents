@@ -5,7 +5,7 @@
   "author": {
     "name": "Connor Turland"
   },
-  "repository": "https://github.com/connorturland/ClaudeWebhooks",
+  "repository": "https://github.com/Connoropolous/claude-notifications-for-agents",
   "license": "MIT",
   "keywords": ["webhooks", "events", "github", "linear", "stripe", "subscriptions"]
 }
