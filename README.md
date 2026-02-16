@@ -61,7 +61,7 @@ Payloads are summarized to save context window space. Claude can fetch the full 
 |---|---|
 | **ClaudeWebhooks/** | macOS menu bar app (Swift) |
 | **plugin/** | Claude Code plugin with `/subscribe` and `/setup-tunnel` skills |
-| **cli.js** | Socket patch for `@anthropic-ai/claude-agent-sdk` ([view diff](https://github.com/Connoropolous/claude-notifications-for-agents/compare/03d21f1..b8e03d0)) |
+| **cli.js** | Socket patch for the `@anthropic-ai/claude-agent-sdk` npm package's `cli.js` ([view diff](https://github.com/Connoropolous/claude-notifications-for-agents/compare/03d21f1..b8e03d0)) |
 
 ## Requirements
 
