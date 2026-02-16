@@ -1,0 +1,16 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": ".*claude-webhooks.*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/inject-session-id.sh",
+            "timeout": 5
+          }
+        ]
+      }
+    ]
+  }
+}

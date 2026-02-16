@@ -1,0 +1,11 @@
+{
+  "name": "claude-webhooks",
+  "version": "1.0.0",
+  "description": "Subscribe Claude Code sessions to webhook events from GitHub, Linear, Stripe, and other services",
+  "author": {
+    "name": "Connor Turland"
+  },
+  "repository": "https://github.com/connorturland/ClaudeWebhooks",
+  "license": "MIT",
+  "keywords": ["webhooks", "events", "github", "linear", "stripe", "subscriptions"]
+}
