@@ -73,7 +73,7 @@ Payloads are summarized to save context window space. Claude can fetch the full 
 ## Security
 
 - All incoming webhooks are verified via HMAC-SHA256 signature before being accepted
-- The `cli.js` file is a patched copy of `cli.js` from `@anthropic-ai/claude-agent-sdk@2.1.42`. The [only change](https://github.com/Connoropolous/claude-notifications-for-agents/compare/03d21f1..b8e03d0) adds Unix socket support so external processes can deliver messages into a running session. No other modifications were made.
+- The `cli.js` file is a patched copy of `cli.js` from Claude Code v2.1.42 (bundled via `@anthropic-ai/claude-agent-sdk`). The [only change](https://github.com/Connoropolous/claude-notifications-for-agents/compare/03d21f1..b8e03d0) adds Unix socket support so external processes can deliver messages into a running session. No other modifications were made.
 
 ## Requirements
 
