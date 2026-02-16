@@ -26,6 +26,7 @@ open .build/*/release/ClaudeWebhooks
 
 ```bash
 claude plugin marketplace add https://github.com/Connoropolous/claude-notifications-for-agents
+claude plugin add claude-webhooks --scope user
 ```
 
 ### 3. Set up a tunnel
