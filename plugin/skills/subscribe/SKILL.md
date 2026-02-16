@@ -160,10 +160,11 @@ Fill in:
 
 If the Browser tool is not available, tell the user:
 
-> "I need the Claude in Chrome extension to register this webhook for you.
-> Install it here: https://chromewebstore.google.com/publisher/anthropic/u308d63ea0533efcf7ba778ad42da7390
+> "I need the Browser tool to register this webhook for you. Two things are needed:
+> 1. Start Claude Code with `claude --chrome`
+> 2. Install the Claude in Chrome extension: https://chromewebstore.google.com/publisher/anthropic/u308d63ea0533efcf7ba778ad42da7390
 >
-> Once installed, restart Claude Code and try `/subscribe` again."
+> Then try `/subscribe` again."
 
 ### Approach 3: Manual (last resort)
 
