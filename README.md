@@ -70,6 +70,11 @@ Payloads are summarized to save context window space. Claude can fetch the full 
 | **plugin/** | Claude Code plugin with `/subscribe` and `/setup-tunnel` skills |
 | **cli.js** | Socket patch for the `@anthropic-ai/claude-agent-sdk` npm package's `cli.js` ([view diff](https://github.com/Connoropolous/claude-notifications-for-agents/compare/03d21f1..b8e03d0)) |
 
+## Security
+
+- All incoming webhooks are verified via HMAC-SHA256 signature before being accepted
+- The `cli.js` file is a patched copy of `cli.js` from `@anthropic-ai/claude-agent-sdk@2.1.42`. The [only change](https://github.com/Connoropolous/claude-notifications-for-agents/compare/03d21f1..b8e03d0) adds Unix socket support so external processes can deliver messages into a running session. No other modifications were made.
+
 ## Requirements
 
 - macOS 14+
